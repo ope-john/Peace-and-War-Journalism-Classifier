@@ -1,1 +1,94 @@
 I saw a dark light, then the house was bombed. I fainted. Then I woke up and found myself under the rubble.
+
+
+
+
+0.8400435255712732
+
+0.85310119695321
+
+0.8618063112078346
+
+0.8389553862894451
+
+
+        st.code('example1 = "Boko Haram claims attack in Niger that killed dozens."')
+        st.code('example.lower()')
+        st.code('output: example = "boko haram claims attack in niger that killed dozens."')
+
+        st.code('import string')
+        st.code('example2 = "".join([word for word in example1 if word not in string.punctuation])')
+        st.code('output: example2 = "boko haram claims attack in niger that killed dozens"')
+
+        st.code('import nltk')
+        st.code('stopwords = nltk.corpus.stopwords.words("english")')
+        st.code('example3 = [word for word in example2 if word not in stopwords]')
+        st.code('output: example3 = "boko haram claims attack niger killed dozens"')
+
+        st.code('import re')
+        st.code('example4 = re.split("\W+", example3)')
+        st.code('output: example4 = ["boko", "haram", "claims", "attack", "niger", "killed", "dozens"]')
+
+        st.code('import nltk')
+        st.code('lemma = nltk.WordNetLemmatizer()')
+        st.code('example5 = [lemma.lemmatize(word) for word in example4]')
+        st.code('output: example5 = ["boko", "haram", "claim", "attack", "niger", "kill", "dozen"]')
+
+        st.code('from sklearn.feature_extraction.text import TfidfVectorizer')
+        st.code('vector  = TfidfVectorizer()')
+        st.code('example6 = vector.fit_transform(example5)')
+        st.code('output: example6 = [1 0 0 1 0 1 0]')
+
+
+
+
+
+
+            npGaltung = galtung
+    instanceDict = {
+        "InstanceVector": npHeadline,
+        "InstanceGaltung": npGaltung
+    }
+    instanceDf = pd.DataFrame(instanceDict, index=[0])
+    instanceVector = instanceDf['InstanceVector'].values
+    instanceGaltung = instanceDf['InstanceGaltung'].values
+
+
+
+
+    #x = tfidf.transform(instanceList)
+
+    
+
+    #print(denseInput)
+    print('New')
+
+    
+    #print(x)
+    
+    print(df.head())
+    #print('xxxx')
+    #print(tfidf.fit_transform((df['Vectors'].values)))
+    print(type(training))
+    #print(type(npHeadline))
+    #print(df['Galtung'].values)
+    print('xxxx')
+    #print(df['Class'].values)
+    print(type(x))
+    #print(type(npGaltung))
+    #print('xxxx')
+    #print(type(vectorizedHeadline))
+    #print(encodedClasses)
+    #print(instance)
+
+galtungCriteriaValue = galtungCriteria(galtungCriteriaText)
+
+
+    data = {
+        'Vectors': vectorizedHeadline,
+        'Galtung': galtungCriteria,
+        'Class': encodedClasses
+    }
+    df = pd.DataFrame(data)
+    vectors = df['Vectors'].values
+    galtungValues = df['Galtung'].values

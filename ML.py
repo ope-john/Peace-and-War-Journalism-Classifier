@@ -18,17 +18,31 @@ from sklearn.metrics import accuracy_score
 labelEn = LabelEncoder()
 wn = nltk.WordNetLemmatizer()
 #cv = CountVectorizer()
-tfidf  = TfidfVectorizer()
+tfidf = TfidfVectorizer()
 stopwords = nltk.corpus.stopwords.words('english')
 
 def dataPreprocessor():
-    df = pd.read_csv('War_Peace.csv')
-    dfColumns = df[['Headline', 'Class']]
-    headline = dfColumns['Headline']
-    classes = dfColumns['Class']
+    df = pd.read_csv('War_Peace_Dataset.csv')
+    dfColumns = df[["Headline", "Galtung's Criteria", "Class"]]
+    headline = dfColumns["Headline"]
+    galtungCriteria = dfColumns["Galtung's Criteria"]
+    classes = dfColumns["Class"]
 
     binaryClass = labelEn.fit_transform(classes)
+    galtungEncoded = labelEn.fit_transform(galtungCriteria)
     #Where 0 == Peace and 1 == War
+
+    """""
+    ['Focus on invisible effects of violence (trauma and glory, damage to structure/ culture)',
+       'Focus only on visible effect of violence (killed, wounded and material damage)',
+       'Focus on conflict arena, 2 parties,  1 goal (win), war general zero-sum orientation.',
+       'Peace = Victory + Ceasefire', 'Peace = Non-violence + Creativity',
+       "Explore conflict formation, x parties, y goals, z issues general 'win, win, orientation'.",
+       'Focus on suffering all over. On aged children, women, giving voice to the voiceless.',
+       "Focus on 'our' suffering; on able-bodied elite males, being their mouth-piece."]
+    
+    [5, 6, 7, 2, 3, 0, 4, 1]
+    """""
 
     #Punctuations
     def dfRemovePunc(headline):
@@ -53,10 +67,11 @@ def dataPreprocessor():
     #Vectorization
     data = {
         'Lemma': df['Lemmatized Words'],
+        'Galtung Criteria': galtungEncoded,
         'Classes': binaryClass
     }
     dfv1 = pd.DataFrame(data)
-    return dfv1.to_csv('Vectorize Dataset.csv', index = False)
+    return dfv1.to_csv('Vectorize_Dataset.csv', index = False)
 
 def interpretation(predict:int):
     if predict == 0:
@@ -67,15 +82,17 @@ def interpretation(predict:int):
 
 
 def headlinePredictor(headline):
+
     dfv1TrainTest = pd.read_csv('Vectorize Dataset.csv')
-    vectorizeHeadline = dfv1TrainTest['Lemma']
+    lemmaHeadline = dfv1TrainTest['Lemma']
 
-    x = tfidf.fit_transform(vectorizeHeadline)
-    vectorizedPrediction = tfidf.transform([headline])
+    x = tfidf.fit_transform(lemmaHeadline)
+    y = dfv1TrainTest['Classes']
+    instance = tfidf.transform([headline])
 
-    encodedClasses = dfv1TrainTest['Classes']
-    (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, encodedClasses, train_size=0.7, random_state=10)
-
+    
+    (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, y, train_size=0.7, random_state=10)
+        
     response = {
         
     }
@@ -83,13 +100,12 @@ def headlinePredictor(headline):
     lr = LogisticRegression()
     lr.fit(train_inputs, train_classes)
     lrScore = lr.score(test_inputs, test_classes)
-    lrPredict = lr.predict(vectorizedPrediction)
+    lrPredict = lr.predict(instance)
     lrWordPredict = interpretation(lrPredict)
-    lrProbability = lr.predict_proba(vectorizedPrediction)
+    lrProbability = lr.predict_proba(instance)
     #KNN Classifier
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
-        'Accuracy': lrScore,
         'Prediction': lrWordPredict,
     }
 
@@ -97,13 +113,12 @@ def headlinePredictor(headline):
     nb = MultinomialNB()
     nb.fit(train_inputs, train_classes)
     nbScore = nb.score(test_inputs, test_classes)
-    nbPredict = nb.predict(vectorizedPrediction)
+    nbPredict = nb.predict(instance)
     nbWordPredict = interpretation(nbPredict)
-    nbProbability = nb.predict_proba(vectorizedPrediction)
+    nbProbability = nb.predict_proba(instance)
     #Naive Bayes Classifier
     response['Naive Bayes'] = {
         'ML Classifier': 'Multinomial Naive Bayes',
-        'Accuracy': nbScore,
         'Prediction': nbWordPredict,
     }
 
@@ -111,13 +126,12 @@ def headlinePredictor(headline):
     rf = RandomForestClassifier(n_estimators = 100, bootstrap = True, max_features = 'sqrt')
     rf.fit(train_inputs, train_classes)
     rfScore = rf.score(test_inputs, test_classes)
-    rfPredict = rf.predict(vectorizedPrediction)
+    rfPredict = rf.predict(instance)
     rfWordPredict = interpretation(rfPredict)
-    rfProbability = rf.predict_proba(vectorizedPrediction)
+    rfProbability = rf.predict_proba(instance)
     #Random Forest Classifier
     response['Random Forest'] = {
         'ML Classifier': 'Random Forest Classifier',
-        'Accuracy': rfScore,
         'Prediction': rfWordPredict,  
     }
 
@@ -125,12 +139,11 @@ def headlinePredictor(headline):
     sv = svm.SVC(kernel = 'linear')
     sv.fit(train_inputs, train_classes)
     svScore = sv.score(test_inputs, test_classes)
-    svPredict = sv.predict(vectorizedPrediction)
+    svPredict = sv.predict(instance)
     svWordPredict = interpretation(svPredict)
     #Random Forest Classifier
     response['SVM'] = {
         'ML Classifier': 'Support Vector Machine',
-        'Accuracy': svScore,
         'Prediction': svWordPredict,  
     }
 
@@ -138,16 +151,13 @@ def headlinePredictor(headline):
     dtc = DecisionTreeClassifier()
     dtc.fit(train_inputs, train_classes)
     dtcScore = dtc.score(test_inputs, test_classes)
-    dtcPredict = dtc.predict(vectorizedPrediction)
+    dtcPredict = dtc.predict(instance)
     dtcWordPredict = interpretation(dtcPredict)
-    dtcProbability = dtc.predict_proba(vectorizedPrediction)
+    dtcProbability = dtc.predict_proba(instance)
     #Random Forest Classifier
     response['Decision Tree'] = {
         'ML Classifier': 'Decision Tree Classifier',
-        'Accuracy': dtcScore,
         'Prediction': dtcWordPredict,  
     }
 
-
-    
     return response
