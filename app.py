@@ -14,28 +14,14 @@ st.write(navi)
 
 if navi == 'Home':
     st.header('Dataset')
-    df = pd.read_csv("War_Peace.csv")
+    df = pd.read_csv("War_Peace_Spreadsheet.csv")
     st.write(df.head(10))
 
 if navi == 'Prediction':
     Headline = st.text_area('News headline goes here')
-    galtungCriteriaText = st.selectbox(
-        "Galtung's Criteria",
-        ["Select a Criteria associated with the headline",
-        "Focus on invisible effects of violence (trauma and glory, damage to structure/ culture)",
-        "Focus on conflict arena, 2 parties,  1 goal (win), war general zero-sum orientation.",
-        "Focus on suffering all over. On aged children, women, giving voice to the voiceless.",
-        "Focus only on visible effect of violence (killed, wounded and material damage)",
-        "Focus on 'our' suffering; on able-bodied elite males, being their mouth-piece.",
-        "Peace = Non-violence + Creativity", "Peace = Victory + Ceasefire",
-        "Explore conflict formation, x parties, y goals, z issues general 'win, win, orientation'."
-        ]
-    )
     if st.button('Make Prediction'):
         if len(Headline) < 15:
             st.error("Your News Headline is too short...")
-        elif galtungCriteriaText == 'Select a Criteria associated with the headline':
-            st.error('Please select a criteria')
         else:
             lowercasedHeadline = Headline.lower()
             prediction = headlinePreprocessor(lowercasedHeadline)

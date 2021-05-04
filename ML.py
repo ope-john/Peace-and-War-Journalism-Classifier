@@ -14,6 +14,8 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier 
 from sklearn import svm
 from sklearn.metrics import accuracy_score
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 labelEn = LabelEncoder()
 wn = nltk.WordNetLemmatizer()
@@ -76,18 +78,42 @@ def dataPreprocessor():
 def interpretation(predict:int):
     if predict == 0:
         predict = 'Peace'
-    else:
+        criteria = 'Peace/Conflict Oriented: Explores conflict formation, x parties, y goals, z issues general "win, win, orientation".'
+    elif predict == 1:
         predict = 'War'
-    return predict
+        criteria = 'Elite Oriented: Focuses on "our" suffering; On able-bodied elite males, being their mouth-piece.'
+    elif predict == 2:
+        predict = 'War'
+        criteria = 'War/Violence Oriented: Focuses on the conflict arena, 2 parties, 1 goal (win), war general zero-sum orientation.'
+    elif predict == 3:
+        predict = 'Peace'
+        criteria = 'Peace/Conflict Oriented: Focuses on the invisible effects of violence (trauma and glory, damage to structure/culture).'
+    elif predict == 4:
+        predict = 'Peace'
+        criteria = 'People Oriented: Focuses on suffering all over. On aged children, women, giving voice to the voiceless..'
+    elif predict == 5:
+        predict = 'War'
+        criteria = 'War/Violence Oriented: Focuses only on the visible effect of violence (killed, wounded and material damage).'
+    elif predict == 6:
+        predict = 'Peace'
+        criteria = 'Solution Oriented: Peace = Non-violence + Creativity.'
+    elif predict == 7:
+        predict = 'War'
+        criteria = 'Victory Oriented: Peace = Victory + Ceasefire.'
+    output = {
+        'Prediction': predict,
+        'Criteria': criteria
+    }
+    return output
 
 
 def headlinePredictor(headline):
 
-    dfv1TrainTest = pd.read_csv('Vectorize Dataset.csv')
+    dfv1TrainTest = pd.read_csv('Vectorize_Dataset.csv')
     lemmaHeadline = dfv1TrainTest['Lemma']
 
     x = tfidf.fit_transform(lemmaHeadline)
-    y = dfv1TrainTest['Classes']
+    y = dfv1TrainTest['Galtung Criteria']
     instance = tfidf.transform([headline])
 
     
@@ -106,7 +132,8 @@ def headlinePredictor(headline):
     #KNN Classifier
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
-        'Prediction': lrWordPredict,
+        'Prediction': lrWordPredict.get('Prediction'),
+        'Criteria': lrWordPredict.get('Criteria') 
     }
 
     #Naive Bayes
@@ -119,7 +146,8 @@ def headlinePredictor(headline):
     #Naive Bayes Classifier
     response['Naive Bayes'] = {
         'ML Classifier': 'Multinomial Naive Bayes',
-        'Prediction': nbWordPredict,
+        'Prediction': nbWordPredict.get('Prediction'),
+        'Criteria': nbWordPredict.get('Criteria')  
     }
 
     #Random Forest
@@ -132,7 +160,8 @@ def headlinePredictor(headline):
     #Random Forest Classifier
     response['Random Forest'] = {
         'ML Classifier': 'Random Forest Classifier',
-        'Prediction': rfWordPredict,  
+        'Prediction': rfWordPredict.get('Prediction'),
+        'Criteria': rfWordPredict.get('Criteria')  
     }
 
     #Support Vectors
@@ -144,7 +173,8 @@ def headlinePredictor(headline):
     #Random Forest Classifier
     response['SVM'] = {
         'ML Classifier': 'Support Vector Machine',
-        'Prediction': svWordPredict,  
+        'Prediction': svWordPredict.get('Prediction'),
+        'Criteria': svWordPredict.get('Criteria') 
     }
 
     #Decision Tree
@@ -157,7 +187,8 @@ def headlinePredictor(headline):
     #Random Forest Classifier
     response['Decision Tree'] = {
         'ML Classifier': 'Decision Tree Classifier',
-        'Prediction': dtcWordPredict,  
+        'Prediction': dtcWordPredict.get('Prediction'),
+        'Criteria': dtcWordPredict.get('Criteria')
     }
 
     return response

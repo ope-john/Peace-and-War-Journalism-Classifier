@@ -5,6 +5,8 @@ import string
 import re
 from sklearn.feature_extraction.text import CountVectorizer
 from ML import headlinePredictor
+nltk.download('stopwords')
+nltk.download('wordnet')
 
 def headlinePreprocessor(headline):
     #Remove Punctuations
