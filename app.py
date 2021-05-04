@@ -65,7 +65,7 @@ if navi == 'Documentation':
         st.code('MachineLearningAlgorithm.score(test_inputs, test_classes)')
     if subNav == 'Tools':
         st.subheader('Visualization')
-        st.write('Stramlit')
+        st.write('Streamlit')
         st.subheader('Natural Language Processing')
         st.write('Natural Language Toolkit')
         st.subheader('Machine Learning')
