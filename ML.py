@@ -148,7 +148,7 @@ def headlinePredictor(headline):
     response['Naive Bayes'] = {
         'ML Classifier': 'Multinomial Naive Bayes',
         'Prediction': nbWordPredict.get('Prediction'),
-        'Criteria': nbWordPredict.get('Criteria')  
+        'Criteria': nbWordPredict.get('Criteria'),  
         'Accuracy Score': nbScore
     }
 
