@@ -134,7 +134,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Logistic Regression',
         'Prediction': lrWordPredict.get('Prediction'),
         'Criteria': lrWordPredict.get('Criteria'),
-        'Accuracy Score': 89
+        'Accuracy Score': 0.89645355241442
     }
 
     #Naive Bayes
@@ -149,7 +149,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Multinomial Naive Bayes',
         'Prediction': nbWordPredict.get('Prediction'),
         'Criteria': nbWordPredict.get('Criteria'),  
-        'Accuracy Score': 85
+        'Accuracy Score': 0.85774262611828223
     }
 
     #Random Forest
@@ -164,7 +164,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Random Forest Classifier',
         'Prediction': rfWordPredict.get('Prediction'),
         'Criteria': rfWordPredict.get('Criteria'),
-        'Accuracy Score': 92
+        'Accuracy Score': 0.926534242424152
     }
 
     #Support Vectors
@@ -178,7 +178,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Support Vector Machine',
         'Prediction': svWordPredict.get('Prediction'),
         'Criteria': svWordPredict.get('Criteria'),
-        'Accuracy Score': 83
+        'Accuracy Score': 0.83142237749050
     }
 
     #Decision Tree
@@ -193,7 +193,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Decision Tree Classifier',
         'Prediction': dtcWordPredict.get('Prediction'),
         'Criteria': dtcWordPredict.get('Criteria'),
-        'Accuracy Score': 90
+        'Accuracy Score': 0.915626737702227
     }
 
     return response
