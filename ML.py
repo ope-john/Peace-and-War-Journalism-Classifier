@@ -133,7 +133,8 @@ def headlinePredictor(headline):
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
         'Prediction': lrWordPredict.get('Prediction'),
-        'Criteria': lrWordPredict.get('Criteria') 
+        'Criteria': lrWordPredict.get('Criteria'),
+        'Accuracy Score': lrScore
     }
 
     #Naive Bayes
@@ -148,6 +149,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Multinomial Naive Bayes',
         'Prediction': nbWordPredict.get('Prediction'),
         'Criteria': nbWordPredict.get('Criteria')  
+        'Accuracy Score': nbScore
     }
 
     #Random Forest
@@ -161,7 +163,8 @@ def headlinePredictor(headline):
     response['Random Forest'] = {
         'ML Classifier': 'Random Forest Classifier',
         'Prediction': rfWordPredict.get('Prediction'),
-        'Criteria': rfWordPredict.get('Criteria')  
+        'Criteria': rfWordPredict.get('Criteria'),
+        'Accuracy Score': rfScore
     }
 
     #Support Vectors
@@ -174,7 +177,8 @@ def headlinePredictor(headline):
     response['SVM'] = {
         'ML Classifier': 'Support Vector Machine',
         'Prediction': svWordPredict.get('Prediction'),
-        'Criteria': svWordPredict.get('Criteria') 
+        'Criteria': svWordPredict.get('Criteria'),
+        'Accuracy Score': svScore
     }
 
     #Decision Tree
@@ -188,7 +192,8 @@ def headlinePredictor(headline):
     response['Decision Tree'] = {
         'ML Classifier': 'Decision Tree Classifier',
         'Prediction': dtcWordPredict.get('Prediction'),
-        'Criteria': dtcWordPredict.get('Criteria')
+        'Criteria': dtcWordPredict.get('Criteria'),
+        'Accuracy Score': dtcScore
     }
 
     return response
