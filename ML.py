@@ -131,6 +131,8 @@ def headlinePredictor(headline):
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
     #KNN Classifier
+    print(test_inputs)
+    print(test_classes)
     confu_matrix = confusion_matrix(test_classes, test_inputs)
     classifi_report = classification_report(test_classes, test_inputs)
     response['LR'] = {
