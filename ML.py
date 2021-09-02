@@ -128,10 +128,11 @@ def headlinePredictor(headline):
     lr.fit(train_inputs, train_classes)
     lrScore = lr.score(test_inputs, test_classes)
     lrPredict = lr.predict(instance)
+    lr_test_inputs lr.predict(test_inputs)
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
-    confu_matrix = confusion_matrix(lr)
-    classifi_report = classification_report(lr)
+    confu_matrix = confusion_matrix(lr_test_inputs, test_classes)
+    classifi_report = classification_report(lr_test_inputs, test_classes)
     #KNN Classifier
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
