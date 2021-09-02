@@ -119,15 +119,7 @@ def headlinePredictor(headline):
 
     
     (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, y, train_size=0.7, random_state=10)
-    
-    confu_matrix = confusion_matrix(test_inputs, test_classes)
-    print('Confusion Matrix:')
-    print(confu_matrix)
-    classifi_report = classification_report(test_inputs, test_classes)
-    print('Classification Report:')
-    print(classifi_report)
-   
-        
+            
     response = {
         
     }
@@ -139,11 +131,15 @@ def headlinePredictor(headline):
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
     #KNN Classifier
+    confu_matrix = confusion_matrix(test_classes, lrPredict)
+    classifi_report = classification_report(test_classes, lrPredict)
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
         'Prediction': lrWordPredict.get('Prediction'),
         'Criteria': lrWordPredict.get('Criteria'),
-        'Accuracy Score': 0.89645355241442
+        'Accuracy Score': 0.89645355241442,
+        'Confusion Matrix': confu_matrix,
+        'Classification Report': classifi_report
     }
 
     #Naive Bayes
