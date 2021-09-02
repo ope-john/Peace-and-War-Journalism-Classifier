@@ -119,10 +119,6 @@ def headlinePredictor(headline):
 
     
     (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, y, train_size=0.7, random_state=10)
-    
-
-    print(confu_matrix)
-    print(classifi_report)
             
     response = {
         
