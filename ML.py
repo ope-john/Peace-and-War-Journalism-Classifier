@@ -128,7 +128,7 @@ def headlinePredictor(headline):
     lr.fit(train_inputs, train_classes)
     lrScore = lr.score(test_inputs, test_classes)
     lrPredict = lr.predict(instance)
-    lr_test_inputs lr.predict(test_inputs)
+    lr_test_inputs = lr.predict(test_inputs)
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
     confu_matrix = confusion_matrix(lr_test_inputs, test_classes)
