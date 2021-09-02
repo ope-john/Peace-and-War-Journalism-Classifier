@@ -158,7 +158,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Multinomial Naive Bayes',
         'Prediction': nbWordPredict.get('Prediction'),
         'Criteria': nbWordPredict.get('Criteria'),  
-        'Accuracy Score': 0.85774262611828223
+        'Accuracy Score': 0.85774262611828223,
         'Confusion Matrix': nb_confu_matrix,
         'Classification Report': nb_classifi_report
     }
@@ -178,7 +178,7 @@ def headlinePredictor(headline):
         'ML Classifier': 'Random Forest Classifier',
         'Prediction': rfWordPredict.get('Prediction'),
         'Criteria': rfWordPredict.get('Criteria'),
-        'Accuracy Score': 0.926534242424152
+        'Accuracy Score': 0.926534242424152,
         'Confusion Matrix': rf_confu_matrix,
         'Classification Report': rf_classifi_report
     }
