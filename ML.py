@@ -13,7 +13,8 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.tree import DecisionTreeClassifier 
 from sklearn import svm
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+
 nltk.download('stopwords')
 nltk.download('wordnet')
 
@@ -118,6 +119,14 @@ def headlinePredictor(headline):
 
     
     (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, y, train_size=0.7, random_state=10)
+    
+    confu_matrix = confusion_matrix(test_inputs, test_classes)
+    print('Confusion Matrix:')
+    print(confu_matrix)
+    classifi_report = classification_report(test_inputs, test_classes)
+    print('Classification Report:')
+    print(classifi_report)
+   
         
     response = {
         
