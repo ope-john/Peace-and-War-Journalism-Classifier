@@ -119,6 +119,11 @@ def headlinePredictor(headline):
 
     
     (train_inputs, test_inputs, train_classes, test_classes) = train_test_split(x, y, train_size=0.7, random_state=10)
+    
+    confu_matrix = confusion_matrix(test_classes, test_classes)
+    classifi_report = classification_report(test_classes, test_classes)
+    print(confu_matrix)
+    print(classifi_report)
             
     response = {
         
@@ -131,10 +136,6 @@ def headlinePredictor(headline):
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
     #KNN Classifier
-    print(test_inputs)
-    print(test_classes)
-    confu_matrix = confusion_matrix(test_classes, test_classes)
-    classifi_report = classification_report(test_classes, test_classes)
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
         'Prediction': lrWordPredict.get('Prediction'),
