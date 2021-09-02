@@ -131,16 +131,16 @@ def headlinePredictor(headline):
     lr_test_inputs = lr.predict(test_inputs)
     lrWordPredict = interpretation(lrPredict)
     lrProbability = lr.predict_proba(instance)
-    confu_matrix = confusion_matrix(lr_test_inputs, test_classes)
-    classifi_report = classification_report(lr_test_inputs, test_classes)
+    lr_confu_matrix = confusion_matrix(lr_test_inputs, test_classes)
+    lr_classifi_report = classification_report(lr_test_inputs, test_classes)
     #KNN Classifier
     response['LR'] = {
         'ML Classifier': 'Logistic Regression',
         'Prediction': lrWordPredict.get('Prediction'),
         'Criteria': lrWordPredict.get('Criteria'),
         'Accuracy Score': 0.89645355241442,
-        'Confusion Matrix': confu_matrix,
-        'Classification Report': classifi_report
+        'Confusion Matrix': lr_confu_matrix,
+        'Classification Report': lr_classifi_report
     }
 
     #Naive Bayes
@@ -148,14 +148,19 @@ def headlinePredictor(headline):
     nb.fit(train_inputs, train_classes)
     nbScore = nb.score(test_inputs, test_classes)
     nbPredict = nb.predict(instance)
+    nb_test_inputs = nb.predict(test_inputs)
     nbWordPredict = interpretation(nbPredict)
     nbProbability = nb.predict_proba(instance)
+    nb_confu_matrix = confusion_matrix(nb_test_inputs, test_classes)
+    nb_classifi_report = classification_report(nb_test_inputs, test_classes)
     #Naive Bayes Classifier
     response['Naive Bayes'] = {
         'ML Classifier': 'Multinomial Naive Bayes',
         'Prediction': nbWordPredict.get('Prediction'),
         'Criteria': nbWordPredict.get('Criteria'),  
         'Accuracy Score': 0.85774262611828223
+        'Confusion Matrix': nb_confu_matrix,
+        'Classification Report': nb_classifi_report
     }
 
     #Random Forest
@@ -163,14 +168,19 @@ def headlinePredictor(headline):
     rf.fit(train_inputs, train_classes)
     rfScore = rf.score(test_inputs, test_classes)
     rfPredict = rf.predict(instance)
+    rf_test_inputs = rf.predict(test_inputs)
     rfWordPredict = interpretation(rfPredict)
     rfProbability = rf.predict_proba(instance)
+    rf_confu_matrix = confusion_matrix(rf_test_inputs, test_classes)
+    rf_classifi_report = classification_report(rf_test_inputs, test_classes)
     #Random Forest Classifier
     response['Random Forest'] = {
         'ML Classifier': 'Random Forest Classifier',
         'Prediction': rfWordPredict.get('Prediction'),
         'Criteria': rfWordPredict.get('Criteria'),
         'Accuracy Score': 0.926534242424152
+        'Confusion Matrix': rf_confu_matrix,
+        'Classification Report': rf_classifi_report
     }
 
     #Support Vectors
@@ -178,13 +188,18 @@ def headlinePredictor(headline):
     sv.fit(train_inputs, train_classes)
     svScore = sv.score(test_inputs, test_classes)
     svPredict = sv.predict(instance)
+    sv_test_inputs = sv.predict(test_inputs)
     svWordPredict = interpretation(svPredict)
-    #Random Forest Classifier
+    sv_confu_matrix = confusion_matrix(sv_test_inputs, test_classes)
+    sv_classifi_report = classification_report(sv_test_inputs, test_classes)
+    #Support Vector Classifier
     response['SVM'] = {
         'ML Classifier': 'Support Vector Machine',
         'Prediction': svWordPredict.get('Prediction'),
         'Criteria': svWordPredict.get('Criteria'),
-        'Accuracy Score': 0.83142237749050
+        'Accuracy Score': 0.83142237749050,
+        'Confusion Matrix': sv_confu_matrix,
+        'Classification Report': sv_classifi_report
     }
 
     #Decision Tree
@@ -192,14 +207,19 @@ def headlinePredictor(headline):
     dtc.fit(train_inputs, train_classes)
     dtcScore = dtc.score(test_inputs, test_classes)
     dtcPredict = dtc.predict(instance)
+    dtc_test_inputs = sv.predict(test_inputs)
     dtcWordPredict = interpretation(dtcPredict)
     dtcProbability = dtc.predict_proba(instance)
-    #Random Forest Classifier
+    dtc_confu_matrix = confusion_matrix(dtc_test_inputs, test_classes)
+    dtc_classifi_report = classification_report(dtc_test_inputs, test_classes)
+    #Decision Tree Classifier
     response['Decision Tree'] = {
         'ML Classifier': 'Decision Tree Classifier',
         'Prediction': dtcWordPredict.get('Prediction'),
         'Criteria': dtcWordPredict.get('Criteria'),
-        'Accuracy Score': 0.915626737702227
+        'Accuracy Score': 0.915626737702227,
+        'Confusion Matrix': dtc_confu_matrix,
+        'Classification Report': dtc_classifi_report
     }
 
     return response
