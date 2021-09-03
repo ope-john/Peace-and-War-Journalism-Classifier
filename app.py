@@ -26,8 +26,8 @@ if navi == 'Prediction':
             lowercasedHeadline = Headline.lower()
             prediction = headlinePreprocessor(lowercasedHeadline)
             st.write(prediction)
-            st.code(prediction['Random Forest']['Classification Report'])
-            st.code(prediction['Random Forest']['Confusion Matrix'])
+            st.code(prediction['SVM']['Classification Report'])
+            st.code(prediction['SVM']['Confusion Matrix'])
 
 if navi == 'Documentation':
     subNav = st.sidebar.selectbox(
