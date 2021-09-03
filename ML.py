@@ -114,7 +114,7 @@ def headlinePredictor(headline):
     lemmaHeadline = dfv1TrainTest['Lemma']
 
     x = tfidf.fit_transform(lemmaHeadline)
-    y = dfv1TrainTest["Galtung's Criteria"]
+    y = dfv1TrainTest["Galtung Criteria"]
     instance = tfidf.transform([headline])
 
     
