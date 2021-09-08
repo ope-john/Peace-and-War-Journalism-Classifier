@@ -74,6 +74,7 @@ if navi == 'Documentation':
         st.write('Pandas')
         st.write('Numpy')
         st.write('Scikit-Learn')
+        st.code('{"vehicle_id": "6136c1543719c24549a6c0cf"}')
         
         
 
